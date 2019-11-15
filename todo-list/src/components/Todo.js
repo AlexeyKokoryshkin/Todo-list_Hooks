@@ -1,4 +1,5 @@
 import React, {useState} from 'react'; // импортнули Хук useState
+import axios from 'axios';
 
 const Todo = props => {
 
@@ -12,7 +13,11 @@ const Todo = props => {
     
     const todoAddHandler = () => {
         setTodoList(todoList.concat(todoName))  // можно переписать на ES6 используя спред оператор: (...todoList, todoName)
-    }
+
+        axios.post('https://todo-5fb59.firebaseio.com/todo.json', { name: todoName })  // облачная БД на firebase. Первым аргументом задаем куда отправить запрос, а вторым что отправить post запросом
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    };
 
    return <>
         <input onChange={inputChangeHandler} value={todoName} type="text" placeholder="Todo"/>   
