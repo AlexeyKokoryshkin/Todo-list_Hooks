@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Todo from './components/Todo';
+import Header from './components/Header';
+import Auth from './components/Auth';
 
-function App() {
+const App = props => {
+ const [page, setPage] = useState("Auth");
+
+ const switchPage = (pageName) => {
+   setPage(pageName)
+ }
+
+
   return (
     <div className="App">
       <header className="App-header">
+        <Header
+        onLoadTodoes={switchPage.bind(null, "todoes")}
+        onLoadAuth={switchPage.bind(null, "auth")}
+        />
+        <hr/>  
       </header>
-      <Todo/>
+      {page === "auth" ? <Auth/> : <Todo/>}
     </div>
   );
-}
+};
 
 export default App;
 

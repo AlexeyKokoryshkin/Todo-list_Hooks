@@ -1,10 +1,37 @@
-import React, {useState} from 'react'; // импортнули Хук useState
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Todo = props => {
 
     const [todoName, setTodoName] = useState(""); // внутри функции useState ничего нет, но это массив из двух элементов которые в свою очередь являются функциями [state, setState]
     const [todoList, setTodoList] = useState([]); // отображаем список введенного текста в input
+
+    useEffect( () => {
+        axios.get('https://todo-5fb59.firebaseio.com/todo.json')
+        .then( result => {
+            console.log(result);
+            const todoDate = result.data;
+            const todoes = [];
+            for (const key in todoDate) {
+                todoes.push({ id: key, name: todoDate[key].name })
+            }
+            setTodoList(todoes)
+        })
+    }, [])
+
+    // Пример использования ComponentWillMount
+    /* const mouseMoveHandler = event => {                      
+            console.log(event.clientX, event.clientY);
+        }
+
+    useEffect( () => {
+        document.addEventListener('mousemove', mouseMoveHandler);
+        
+        return () => {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+        }
+    }, []); */
+
 
     const inputChangeHandler = (event) => {
         // console.log(event.target.value);
@@ -23,7 +50,7 @@ const Todo = props => {
         <input onChange={inputChangeHandler} value={todoName} type="text" placeholder="Todo"/>   
         <button onClick={todoAddHandler}>Add</button>
         <ul>
-            {todoList.map(todo => (<li key={todo}>{todo}</li>))}
+            {todoList.map(todo => (<li key={todo.id}>{todo.name}</li>))}
         </ul>
     </>
 }
