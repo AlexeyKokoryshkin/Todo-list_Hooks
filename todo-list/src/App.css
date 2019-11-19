@@ -1,1 +1,28 @@
-/* No CSS *//*# sourceMappingURL=App.css.map */
+.container {
+  background: #FAFAFA;
+  height: auto;
+  margin-top: 10%;
+}
+
+.b-header_aboutProduct {
+  display: block;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  background: #D5D5D5;
+  margin-left: -15px !important;
+  margin-right: -15px !important;
+}
+
+.b-header_aboutProduct .b-header_aboutProduct__h1 {
+  display: inline-block;
+  padding: 15px;
+}
+
+.btn {
+  margin: 5px !important;
+}
+
+.b-header_todoAddHandler {
+  margin-top: 0 !important;
+}
+/*# sourceMappingURL=App.css.map */

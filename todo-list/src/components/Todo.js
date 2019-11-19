@@ -19,20 +19,6 @@ const Todo = props => {
         })
     }, [])
 
-    // Пример использования ComponentWillMount
-    /* const mouseMoveHandler = event => {                      
-            console.log(event.clientX, event.clientY);
-        }
-
-    useEffect( () => {
-        document.addEventListener('mousemove', mouseMoveHandler);
-        
-        return () => {
-            document.removeEventListener('mousemove', mouseMoveHandler);
-        }
-    }, []); */
-
-
     const inputChangeHandler = (event) => {
         // console.log(event.target.value);
         setTodoName(event.target.value); // обратились к setState для фиксации изменений в инпуте
@@ -46,12 +32,28 @@ const Todo = props => {
         .catch(err => console.log(err))
     };
 
+    const todoDelHandler = () => {
+        axios.delete('https://todo-5fb59.firebaseio.com/todo.json', { todoName })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
    return <>
-        <input onChange={inputChangeHandler} value={todoName} type="text" placeholder="Todo"/>   
-        <button onClick={todoAddHandler}>Add</button>
-        <ul>
-            {todoList.map(todo => (<li key={todo.id}>{todo.name}</li>))}
-        </ul>
+        <header> 
+            <div className="input-group mb-3">
+                <input className="b-header_inputChangeHandler form-control" onChange={inputChangeHandler} value={todoName} type="text" placeholder="Todo"/> 
+                <button className="b-header_todoAddHandler btn btn-success" onClick={todoAddHandler}>Add</button>
+            </div>
+            
+        </header>
+        <main>
+            <div className="b-main_todoList">
+                <ul>
+                    {todoList.map(todo => (<li key={todo.id}> {todo.name} </li>))} 
+                </ul>
+            </div>  
+            <div className="b-main_clearButton"> {<button className="btn btn-danger" onClick={todoDelHandler}>Clear All</button>}</div>  
+        </main>   
     </>
 }
 

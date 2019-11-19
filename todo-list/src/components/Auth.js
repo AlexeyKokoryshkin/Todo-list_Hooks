@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from './auth-context';
 
 const Auth = props => {
-    return <h1>Auth Component</h1>
+    const auth = useContext(AuthContext)
+    return <button className="btn btn-primary" onClick={auth.login}>Log in!</button>
 }
-
 export default Auth;
